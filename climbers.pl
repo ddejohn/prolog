@@ -34,12 +34,12 @@ will_climb(P, M) :- certified(P), climber(P), (
 ).
 
 is_mountain(M) :- mountain(M, _, _).
-taller_than(M, X) :- mountain(M, _, H), H > X.
+taller_than(M, X) :-
+    not(mountain(X, _, H)), mountain(M, _, H), H > X;
+    mountain(X, _, H), taller_than(M, H).
 located_in(M, X) :- mountain(M, C, _), C == X.
 
 % map(F, X) :- F(X)
-
-
 
 
 % Is Mt. Everest one of the highest peaks in the world? true
