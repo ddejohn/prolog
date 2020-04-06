@@ -6,29 +6,11 @@ mountain(elbrus, europe, 18510).
 mountain(vinson, antarctica, 16050).
 mountain(puncak_jaya, australia, 16023).
 
-climber(john).
-climber(kelly).
-climber(maria).
-climber(derek).
-climber(thyago).
-
-certified(john).
-certified(kelly).
-certified(maria).
-certified(derek).
-+certified(thyago).
-
-will_climb(P, M) :- certified(P), climber(P), (
-    P == maria, mountain(M, _, _);
-    P == john, mountain(M, C, _), C==north_america;
-    P == kelly, mountain(M, _, H), H >= 20000;
-    P == derek, mountain(M, C, H), H =< 19000, (
-        C == europe;
-        C == africa;
-        C == australia
-    )
-).
-
+climber(john, certified).
+climber(kelly, certified).
+climber(maria, certified).
+climber(derek, certified).
+climber(thyago, _).
 
 % can compare mountain > mountain with this, not just mountain > height
 taller_than(M, X) :-
@@ -39,4 +21,15 @@ is_mountain(M) :- mountain(M, _, _).
 
 located_in(M, X) :- mountain(M, C, _), C == X.
 
-all_peaks(P) :- (will_climb(P, M), mountain(M, _, _)), write(M).
+certified(P) :- climber(P, C), C == certified.
+
+will_climb(P, M) :- climber(P, certified), (
+    P == maria, mountain(M, _, _);
+    P == john, mountain(M, C, _), C==north_america;
+    P == kelly, mountain(M, _, H), H >= 20000;
+    P == derek, mountain(M, C, H), H =< 19000, (
+        C == europe;
+        C == africa;
+        C == australia
+    )
+).
