@@ -30,6 +30,8 @@ will_climb(P, M) :- certified(P), climber(P), (
 ).
 
 is_mountain(M) :- mountain(M, _, _).
+
+% can compare mountain > mountain with this, not just mountain > height
 taller_than(M, X) :-
     mountain(X, _, H), taller_than(M, H);
     integer(X), mountain(M, _, H), H > X.
