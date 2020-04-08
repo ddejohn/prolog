@@ -33,3 +33,4 @@ will_climb(P, M) :- climber(P, certified), (
         C == australia
     )
 ).
+
