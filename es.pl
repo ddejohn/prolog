@@ -1,33 +1,38 @@
 % reference: https://gist.github.com/adrianomelo/207c4da2f50744f04c9d
 
 begin :- write('Welcome to this ES about minerals!'), nl,
-    write('I am going to ask questions about the specimen\'s traits.'), nl,
+    write('I am going to ask questions about the specimen.'), nl,
 	write('Please only answer yes or no.'), nl,
     write('Ready?'), nl,
     read(R), (R == no -> write('bye'), nl);
     identify(Mineral) ->
-    	(write('Sounds like you\'re describing '),
-        write(Mineral), nl,
+    	((write('Sounds like you\'re describing '), write(Mineral), nl,
         write('Is this correct?'),
-        read(R), (R == yes -> write('Excellent!'), nl);
-        identify(unknown),
-    	undo),
-    write('To try again, type \'begin.\'').
+        read(R), (R == yes ->
+            write('Excellent!'), nl;
+            write('I guessed wrong, sorry!'), nl));
+        undo, write('Hmmm... I couldn\'t figure that out...'), nl),
+    write('To try again, type \'begin.\''), nl.
 
 
 % hypotheses to be tested
+% metallic
 identify(magnetite)     :- magnetite,       !.
 identify(graphite)      :- graphite,        !.
 identify(galena)        :- galena,          !.
 identify(hematite)      :- hematite,        !.
 identify(pyrite)        :- pyrite,          !.
 identify(chalcopyrite)  :- chalcopyrite,    !.
+
+% non-metallic dark
 identify(hornblende)    :- hornblende,      !.
 identify(augite)        :- augite,          !.
 identify(garnet)        :- garnet,          !.
 identify(olivine)       :- olivine,         !.
 identify(biotite)       :- biotite,         !.
 identify(bauxite)       :- bauxite,         !.
+
+% non-metallic light
 identify(plagioclase)   :- plagioclase,     !.
 identify(orthoclase)    :- orthoclase,      !.
 identify(quartz)        :- quartz,          !.
@@ -41,7 +46,7 @@ identify(selenite)      :- selenite,        !.
 identify(kaolinite)     :- kaolinite,       !.
 identify(talc)          :- talc,            !.
 identify(alabaster)     :- alabaster,       !.
-identify(unknown)       :- unknown,         !.
+identify(unknown).
 
 
 % mineral identification rules
